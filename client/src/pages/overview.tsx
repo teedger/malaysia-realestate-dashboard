@@ -11,7 +11,7 @@ const kpiCards = [
   { label: "Transaction Value", value: `RM ${nationalMetrics.totalValue2024}B`, sub: "2024 Total", icon: DollarSign, change: 18.0, unit: "% YoY" },
   { label: "Overhang Units", value: formatNumber(nationalMetrics.overhangUnits2024), sub: "2024", icon: AlertTriangle, change: -10.3, unit: "% YoY" },
   { label: "New Launches", value: formatNumber(nationalMetrics.newLaunches2024), sub: "2024", icon: HardHat, change: 34.1, unit: "% YoY" },
-  { label: "Shopping Occ. Rate", value: `${nationalMetrics.occupancyRateShopping}%`, sub: "2024", icon: ShoppingBag, change: 1.4, unit: "pp YoY" },
+  { label: "Mall Occupancy", value: `${nationalMetrics.occupancyRateShopping}%`, sub: "2024", icon: ShoppingBag, change: 1.4, unit: "pp YoY" },
 ];
 
 const COLORS = [
@@ -42,7 +42,7 @@ export default function OverviewPage() {
       </div>
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-2">
         {kpiCards.map((kpi) => {
           const Icon = kpi.icon;
           return (
@@ -111,9 +111,14 @@ export default function OverviewPage() {
                   outerRadius={95}
                   dataKey="value"
                   nameKey="name"
-                  label={({ name, value }) => `${name}: ${value}%`}
-                  labelLine={false}
-                  style={{ fontSize: 10 }}
+                  label={({ name, value, cx, cy, midAngle, outerRadius: oR }) => {
+                    const RADIAN = Math.PI / 180;
+                    const radius = oR + 20;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    return <text x={x} y={y} fill="hsl(var(--foreground))" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" style={{ fontSize: 10 }}>{name}: {value}%</text>;
+                  }}
+                  labelLine={true}
                 >
                   {regionData.map((_, idx) => (
                     <Cell key={idx} fill={COLORS[idx % COLORS.length]} />

@@ -108,7 +108,7 @@ export interface PropertyTypePrice {
 export const propertyTypePrices: PropertyTypePrice[] = [
   { type: "Semi-Detached", avgPrice: 757617, yoyChange: 1.8, qoqChange: -0.9 },
   { type: "Detached", avgPrice: 661458, yoyChange: -0.9, qoqChange: -3.3 },
-  { type: "All Houses", avgPrice: 494384, yoyChange: 0.1, qoqChange: -1.46 },
+  { type: "All Houses", avgPrice: 494384, yoyChange: 0.1, qoqChange: -1.5 },
   { type: "Terraced", avgPrice: 479882, yoyChange: 0.8, qoqChange: -1.3 },
   { type: "High-Rise", avgPrice: 375421, yoyChange: -2.6, qoqChange: -1.4 },
 ];
